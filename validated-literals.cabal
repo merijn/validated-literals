@@ -61,7 +61,7 @@ Library
                         ValidLiterals.Class
   Other-Modules:        
 
-  Build-Depends:        base >=4.8 && <4.9
+  Build-Depends:        base >=4.8 && <4.12
                ,        template-haskell
                ,        bytestring >=0.10 && <0.11
 
