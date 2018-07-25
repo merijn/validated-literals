@@ -6,6 +6,7 @@ import Data.ByteString.Char8 (ByteString, pack)
 import Data.Char
 
 import ValidLiterals
+import ValidLiterals.Class
 
 instance Validate String ByteString where
     fromLiteral s
