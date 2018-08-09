@@ -4,6 +4,7 @@
 module Even where
 
 import ValidLiterals
+import ValidLiterals.Class
 
 newtype Even = Even Integer
 
