@@ -45,7 +45,7 @@ Description:
     This will check, at compile time, that the provided @Integer@ is, in fact,
     even and unwrap it from @Maybe@, avoiding the runtime check.
 
-Extra-Source-Files: README.md
+Extra-Source-Files: README.md, CHANGELOG.md
 
 Library
   Default-Language:     Haskell2010
@@ -69,7 +69,7 @@ Test-Suite examples
   Other-Modules:        ByteString
                         Even
 
-  GHC-Options:          -Wall -O0 -fno-warn-unused-do-bind
+  GHC-Options:          -Wall -fno-warn-unused-do-bind
   Other-Extensions:     TemplateHaskell
   Hs-Source-Dirs:       examples
   Build-Depends:        base
