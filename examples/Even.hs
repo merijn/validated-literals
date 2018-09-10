@@ -1,15 +1,27 @@
-{-# LANGUAGE FlexibleInstances #-}
-{-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE TemplateHaskell #-}
-module Even where
+{-# LANGUAGE MultiParamTypeClasses #-}
+
+module Even (Even, mkEven) where
 
 import ValidLiterals
+import Language.Haskell.TH.Syntax (Lift (..))
 
-newtype Even = Even Integer
+newtype Even = Even Int deriving (Eq, Ord, Show)
 
-instance Integral a => Validate a Even where
-    fromLiteral i
-        | even i = Just . Even $ fromIntegral i
-        | otherwise = Nothing
+mkEven :: Int -> Maybe Even
+mkEven int = if even int then Just (Even int) else Nothing
 
-    spliceValid _ (Even i) = [|| Even i ||]
+instance Lift Even where
+   lift (Even int) = [| Even int |]
+
+instance FromLiteral Integer Even where
+    fromLiteral integerValue =
+        case fromLiteral integerValue of
+            Right intValue ->
+                if even intValue
+                    then Right (Even intValue)
+                    else Left "Number must be even"
+            Left reason ->
+                Left reason
+
+instance DefaultLiteralType Integer Even

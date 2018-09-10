@@ -1,12 +1,12 @@
 Name:                validated-literals
-Version:             0.2.0
+Version:             0.3.0
 
 Homepage:            https://github.com/merijn/validated-literals
 Bug-Reports:         https://github.com/merijn/validated-literals/issues
 
 Author:              Merijn Verstraaten
 Maintainer:          Merijn Verstraaten <merijn@inconsistent.nl>
-Copyright:           Copyright © 2015 Merijn Verstraaten
+Copyright:           Copyright © 2015 Merijn Verstraaten, Nikita Churaev
 
 License:             BSD3
 License-File:        LICENSE
@@ -42,7 +42,7 @@ Description:
     @
     .
     This will check, at compile time, that the provided @Integer@ is, in fact,
-    even and unwrap it from @Maybe@, avoiding the runtime check.
+    even and unwrap it from @Either@, avoiding the runtime check.
 
 Extra-Source-Files:
     examples/ByteString.hs
@@ -55,10 +55,12 @@ Library
 
   Default-Extensions:   
   Other-Extensions:     DefaultSignatures, FlexibleContexts,
-                        MultiParamTypeClasses, TemplateHaskell
+                        FlexibleInstances, MultiParamTypeClasses,
+                        ExplicitForAll, ScopedTypeVariables,
+                        FunctionalDependencies, TemplateHaskell
 
   Exposed-Modules:      ValidLiterals
-                        ValidLiterals.Class
+
   Other-Modules:        
 
   Build-Depends:        base >=4.8 && <4.12
