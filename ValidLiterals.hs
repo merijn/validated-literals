@@ -33,19 +33,25 @@
 -- even and unwrap it from 'Maybe', avoiding the runtime check.
 -------------------------------------------------------------------------------
 {-# LANGUAGE FlexibleContexts #-}
+{-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE TemplateHaskell #-}
 module ValidLiterals
-    ( Validate (fromLiteral)
+    ( Validate(..)
     , valid
     , validInteger
     , validRational
     , validString
     , validList
+    , Lift(..)
     ) where
 
 import Language.Haskell.TH.Syntax
 
-import ValidLiterals.Class
+-- | Class for validated, compile-time, partial conversions from type 'a' to
+-- 'b'.
+class Lift b => Validate a b where
+    -- | Converts 'a' values into validated 'b' values
+    fromLiteral :: a -> Maybe b
 
 -- | The core function of ValidLiterals, use this together with Typed Template
 -- Haskell splices to insert validated literals into your code. For example, if
@@ -63,7 +69,7 @@ import ValidLiterals.Class
 valid :: Validate a b => a -> Q (TExp b)
 valid input = case fromLiteral input of
     Nothing -> fail "Invalid input used for type-safe validated literal!"
-    Just result -> spliceValid input result
+    Just result -> [|| result ||]
 
 -- | Integer literals lead to obnoxious defaulting complaints by GHC, by
 -- using this function you can force the defaulting to 'Integer', silencing

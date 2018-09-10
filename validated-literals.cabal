@@ -14,8 +14,7 @@ License-File:        LICENSE
 Category:            Data
 Cabal-Version:       >= 1.10
 Build-Type:          Simple
-Tested-With:         GHC == 7.10.3, GHC == 8.0.2, GHC == 8.2.2, GHC == 8.4.3,
-                     GHC == 8.6.1
+Tested-With:         GHC == 8.0.2, GHC == 8.2.2, GHC == 8.4.3, GHC == 8.6.1
 
 Synopsis:            Compile-time checking for partial smart-constructors
 
@@ -51,15 +50,12 @@ Library
   Default-Language:     Haskell2010
   GHC-Options:          -Wall
 
-  Default-Extensions:   
-  Other-Extensions:     DefaultSignatures, FlexibleContexts,
-                        MultiParamTypeClasses, TemplateHaskell
+  Other-Extensions:     FlexibleContexts, MultiParamTypeClasses,
+                        TemplateHaskell
 
   Exposed-Modules:      ValidLiterals
-                        ValidLiterals.Class
-  Other-Modules:        
 
-  Build-Depends:        base >=4.8 && <4.12
+  Build-Depends:        base >= 4.9 && <4.12
                ,        template-haskell
 
 Test-Suite examples
