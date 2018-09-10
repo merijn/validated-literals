@@ -1,0 +1,5 @@
+packages: ./*.cabal
+documentation: True
+
+program-options
+  haddock-options: --quickjump

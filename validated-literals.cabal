@@ -1,12 +1,12 @@
 Name:                validated-literals
-Version:             0.2.0
+Version:             0.2.0.1
 
 Homepage:            https://github.com/merijn/validated-literals
 Bug-Reports:         https://github.com/merijn/validated-literals/issues
 
 Author:              Merijn Verstraaten
 Maintainer:          Merijn Verstraaten <merijn@inconsistent.nl>
-Copyright:           Copyright © 2015 Merijn Verstraaten
+Copyright:           Copyright © 2015-2018 Merijn Verstraaten
 
 License:             BSD3
 License-File:        LICENSE
@@ -14,7 +14,8 @@ License-File:        LICENSE
 Category:            Data
 Cabal-Version:       >= 1.10
 Build-Type:          Simple
-Tested-With:         GHC == 7.8.3
+Tested-With:         GHC == 7.10.3, GHC == 8.0.2, GHC == 8.2.2, GHC == 8.4.3,
+                     GHC == 8.6.1
 
 Synopsis:            Compile-time checking for partial smart-constructors
 
@@ -44,10 +45,7 @@ Description:
     This will check, at compile time, that the provided @Integer@ is, in fact,
     even and unwrap it from @Maybe@, avoiding the runtime check.
 
-Extra-Source-Files:
-    examples/ByteString.hs
-    examples/Even.hs
-    examples/Examples.hs
+Extra-Source-Files: README.md
 
 Library
   Default-Language:     Haskell2010
@@ -63,7 +61,25 @@ Library
 
   Build-Depends:        base >=4.8 && <4.12
                ,        template-haskell
-               ,        bytestring >=0.10 && <0.11
+
+Test-Suite examples
+  Default-Language:     Haskell2010
+  Type:                 exitcode-stdio-1.0
+  Main-Is:              Examples.hs
+  Other-Modules:        ByteString
+                        Even
+
+  GHC-Options:          -Wall -O0 -fno-warn-unused-do-bind
+  Other-Extensions:     TemplateHaskell
+  Hs-Source-Dirs:       examples
+  Build-Depends:        base
+               ,        bytestring == 0.10.*
+               ,        deepseq == 1.4.*
+               ,        tasty >= 0.11 && < 1.1
+               ,        tasty-hunit == 0.9.*
+               ,        tasty-travis >= 0.2 && < 0.3
+               ,        template-haskell
+               ,        validated-literals
 
 Source-Repository head
   Type:     mercurial

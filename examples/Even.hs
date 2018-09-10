@@ -1,11 +1,16 @@
+{-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE TemplateHaskell #-}
 module Even where
 
-import ValidLiterals
+import Control.DeepSeq (NFData)
+import GHC.Generics (Generic)
+import ValidLiterals.Class
 
-newtype Even = Even Integer
+newtype Even = Even Integer deriving (Show, Generic)
+
+instance NFData Even
 
 instance Integral a => Validate a Even where
     fromLiteral i

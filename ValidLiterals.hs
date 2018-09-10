@@ -58,7 +58,7 @@ import ValidLiterals.Class
 -- import ValidLiterals
 --
 -- x :: ASCII
--- x = $$(valid 'c')
+-- x = $$(valid \'c\')
 -- @
 valid :: Validate a b => a -> Q (TExp b)
 valid input = case fromLiteral input of

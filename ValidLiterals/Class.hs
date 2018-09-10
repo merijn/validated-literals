@@ -48,8 +48,8 @@ class Validate a b where
     -- Clearly, splicing the result directly is much safer (it avoids any
     -- shenanigans with 'unsafePerformIO') and more efficient (no conversion at
     -- runtime). However, this is just not always possible, since, for example,
-    -- 'ByteString' does not have a 'Lift' instance and we may still want to
-    -- have validated newtypes of 'ByteString'.
+    -- @ByteString@ does not have a 'Lift' instance and we may still want to
+    -- have validated newtypes of @ByteString@.
     --
     -- __Default implementation:__ The default implementation (using
     -- DefaultSignatures) uses 'b''s 'Lift' instance to do the efficient thing
