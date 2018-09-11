@@ -11,10 +11,12 @@ import Language.Haskell.TH.Syntax
 
 import ValidLiterals
 
-instance Lift ByteString where
-    lift v = AppE <$> [| BS.pack |] <*> lift (BS.unpack v)
-
 instance Validate String ByteString where
-    fromLiteral s
-        | all ((<=255) . ord) s = Just $ pack s
-        | otherwise = Nothing
+    fromLiteral s = case nonAsciiVals of
+        [] -> Right $ pack s
+        _ -> Left $ "Found non-ASCII values: " ++ show nonAsciiVals
+      where
+        nonAsciiVals = filter (not . (<=255) . ord) s
+
+    liftResult _ v = unsafeTExpCoerce $
+        AppE <$> [| BS.pack |] <*> lift (BS.unpack v)

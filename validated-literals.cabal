@@ -50,7 +50,8 @@ Library
   Default-Language:     Haskell2010
   GHC-Options:          -Wall
 
-  Other-Extensions:     FlexibleContexts, MultiParamTypeClasses,
+  Other-Extensions:     DefaultSignatures, FlexibleContexts,
+                        MultiParamTypeClasses, ScopedTypeVariables,
                         TemplateHaskell
 
   Exposed-Modules:      ValidLiterals
@@ -66,7 +67,8 @@ Test-Suite examples
                         Even
 
   GHC-Options:          -Wall -fno-warn-unused-do-bind
-  Other-Extensions:     TemplateHaskell
+  Other-Extensions:     DeriveGeneric, DeriveLift, FlexibleInstances,
+                        MultiParamTypeClasses, TemplateHaskell
   Hs-Source-Dirs:       examples
   Build-Depends:        base
                ,        bytestring == 0.10.*

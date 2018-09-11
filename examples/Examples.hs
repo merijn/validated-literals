@@ -3,11 +3,10 @@ module Main where
 
 import Control.DeepSeq (NFData, force)
 import Control.Exception
-    (SomeException(SomeException), bracket_, displayException, evaluate, try)
+    (Exception(..), SomeException(..), bracket_, evaluate, try)
 import GHC.IO.Handle (hDuplicate, hDuplicateTo)
 import Language.Haskell.TH (Q, TExp, runQ)
 import System.IO (IOMode(WriteMode), stderr, hFlush, withFile)
-import System.IO.Error (isUserError)
 import Test.Tasty (TestTree, testGroup)
 import Test.Tasty.HUnit (assertFailure, testCase)
 import Test.Tasty.Travis
@@ -46,7 +45,7 @@ checkTHFails name thExpr = testCase name $ do
     result <- try . withRedirectedStderr $ runQ thExpr
     case result of
         Right _ -> assertFailure "TH didn't fail!"
-        Left e | isUserError e -> return ()
+        Left e | Just ValidationFailure{} <- fromException e -> return ()
                | otherwise -> assertFailure "Unexpected TH failure!"
 
 allTests :: TestTree

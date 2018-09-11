@@ -14,5 +14,7 @@ instance NFData Even
 
 instance Integral a => Validate a Even where
     fromLiteral i
-        | even i = Just . Even $ fromIntegral i
-        | otherwise = Nothing
+      | even i = Right . Even $ integer
+      | otherwise = Left $ show integer ++ " is not even!"
+      where
+        integer = fromIntegral i
