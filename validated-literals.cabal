@@ -73,7 +73,7 @@ Test-Suite examples
   Build-Depends:        base
                ,        bytestring == 0.10.*
                ,        deepseq == 1.4.*
-               ,        tasty >= 0.11 && < 1.1
+               ,        tasty >= 0.11 && < 1.2
                ,        tasty-hunit == 0.9.*
                ,        tasty-travis >= 0.2 && < 0.3
                ,        template-haskell
