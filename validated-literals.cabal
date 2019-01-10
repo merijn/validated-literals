@@ -1,20 +1,20 @@
-Name:                validated-literals
-Version:             0.2.0.1
+Name:               validated-literals
+Version:            0.2.0.1
 
-Homepage:            https://github.com/merijn/validated-literals
-Bug-Reports:         https://github.com/merijn/validated-literals/issues
+Homepage:           https://github.com/merijn/validated-literals
+Bug-Reports:        https://github.com/merijn/validated-literals/issues
 
-Author:              Merijn Verstraaten
-Maintainer:          Merijn Verstraaten <merijn@inconsistent.nl>
-Copyright:           Copyright © 2015-2018 Merijn Verstraaten
+Author:             Merijn Verstraaten
+Maintainer:         Merijn Verstraaten <merijn@inconsistent.nl>
+Copyright:          Copyright © 2015-2018 Merijn Verstraaten
 
-License:             BSD3
-License-File:        LICENSE
+License:            BSD3
+License-File:       LICENSE
 
-Category:            Data
-Cabal-Version:       >= 1.10
-Build-Type:          Simple
-Tested-With:         GHC == 8.0.2, GHC == 8.2.2, GHC == 8.4.3, GHC == 8.6.1
+Category:           Data
+Cabal-Version:      >= 1.10
+Build-Type:         Simple
+Tested-With:        GHC == 8.0.2, GHC == 8.2.2, GHC == 8.4.4, GHC == 8.6.3
 
 Synopsis:            Compile-time checking for partial smart-constructors
 
@@ -56,7 +56,7 @@ Library
 
   Exposed-Modules:      ValidLiterals
 
-  Build-Depends:        base >= 4.9 && <4.12
+  Build-Depends:        base >= 4.9 && < 4.13
                ,        template-haskell
 
 Test-Suite examples
