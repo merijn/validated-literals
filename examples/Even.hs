@@ -13,7 +13,7 @@ newtype Even = Even Integer deriving (Show, Generic, Lift)
 instance NFData Even
 
 instance Integral a => Validate a Even where
-    fromLiteral i
+    fromLiteralWithError i
       | even i = Right . Even $ integer
       | otherwise = Left $ show integer ++ " is not even!"
       where

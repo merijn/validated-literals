@@ -1,7 +1,7 @@
 -------------------------------------------------------------------------------
 -- |
 -- Module      :  ValidLiterals
--- Copyright   :  (C) 2015 Merijn Verstraaten
+-- Copyright   :  (C) 2015-2019 Merijn Verstraaten
 -- License     :  BSD-style (see the file LICENSE)
 -- Maintainer  :  Merijn Verstraaten <merijn@inconsistent.nl>
 -- Stability   :  experimental
@@ -50,6 +50,7 @@ module ValidLiterals
     ) where
 
 import Control.Exception (Exception(displayException), throwIO)
+import Data.Maybe (maybe)
 import Data.Proxy (Proxy(Proxy))
 import Data.Typeable (Typeable)
 import Language.Haskell.TH.Syntax
@@ -66,7 +67,18 @@ instance Exception ValidationFailure where
 class Validate a b where
     -- | Converts 'a' values into validated 'b' values, 'Left' values are
     -- reported in the compilation error.
-    fromLiteral :: a -> Either String b
+    fromLiteralWithError :: a -> Either String b
+    fromLiteralWithError = maybe (Left errMsg) Right . fromLiteral
+      where
+        errMsg = "An error occured during compile-time validation!"
+
+    -- | Converts 'a' values into validated 'b' values, 'Nothing' values
+    -- produce a generic error message. Use 'fromLiteralWithError' for custom
+    -- error messages.
+    fromLiteral :: a -> Maybe b
+    fromLiteral = either (const Nothing) Just . fromLiteralWithError
+
+    {-# MINIMAL fromLiteralWithError | fromLiteral #-}
 
     -- | Creates a Typed TH splice for the resulting 'b' values, useful for
     -- avoiding the need for orphan 'Lift' instances and allowing complex
@@ -97,7 +109,7 @@ class Validate a b where
 -- x = $$(valid \'c\')
 -- @
 valid :: forall a b . Validate a b => a -> Q (TExp b)
-valid input = case fromLiteral input of
+valid input = case fromLiteralWithError input of
     Right result -> liftResult (Proxy :: Proxy a) result
     Left err -> do
         reportError $ unlines

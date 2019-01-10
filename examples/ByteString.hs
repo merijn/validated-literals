@@ -12,7 +12,7 @@ import Language.Haskell.TH.Syntax
 import ValidLiterals
 
 instance Validate String ByteString where
-    fromLiteral s = case nonAsciiVals of
+    fromLiteralWithError s = case nonAsciiVals of
         [] -> Right $ pack s
         _ -> Left $ "Found non-ASCII values: " ++ show nonAsciiVals
       where
