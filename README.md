@@ -2,6 +2,7 @@ validated-literals: Compile-time checking for partial smart-constructors
 ================================================================
 [![BSD3](https://img.shields.io/badge/License-BSD-blue.svg)](https://en.wikipedia.org/wiki/BSD_License)
 [![Hackage](https://img.shields.io/hackage/v/validated-literals.svg)](https://hackage.haskell.org/package/validated-literals)
+[![hackage-ci](https://matrix.hackage.haskell.org/api/v2/packages/validated-literals/badge)](https://matrix.hackage.haskell.org/#/package/validated-literals)
 [![Build Status](https://travis-ci.org/merijn/validated-literals.svg)](https://travis-ci.org/merijn/validated-literals)
 
 To disallow invalid input it is common to define (new)types with hidden data
