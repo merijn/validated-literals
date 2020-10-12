@@ -81,9 +81,5 @@ Test-Suite examples
                ,        validated-literals
 
 Source-Repository head
-  Type:     mercurial
-  Location: https://bitbucket.org/merijnv/validated-literals
-
-Source-Repository head
   Type:     git
   Location: git+ssh://github.com:merijn/validated-literals
