@@ -15,7 +15,7 @@ Category:           Data
 Cabal-Version:      >= 1.10
 Build-Type:         Simple
 Tested-With:        GHC == 8.0.2, GHC == 8.2.2, GHC == 8.4.4, GHC == 8.6.5,
-                    GHC == 8.8.1
+                    GHC == 8.8.4, GHC == 8.10.2
 
 Synopsis:            Compile-time checking for partial smart-constructors
 
