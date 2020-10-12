@@ -57,7 +57,7 @@ Library
 
   Exposed-Modules:      ValidLiterals
 
-  Build-Depends:        base >= 4.9 && < 4.14
+  Build-Depends:        base >= 4.9 && < 4.15
                ,        template-haskell
 
 Test-Suite examples
@@ -72,9 +72,9 @@ Test-Suite examples
                         MultiParamTypeClasses, TemplateHaskell
   Hs-Source-Dirs:       examples
   Build-Depends:        base
-               ,        bytestring == 0.10.*
+               ,        bytestring >= 0.10 && < 0.12
                ,        deepseq == 1.4.*
-               ,        tasty >= 0.11 && < 1.3
+               ,        tasty >= 0.11 && < 1.4
                ,        tasty-hunit >= 0.9 && < 0.11
                ,        tasty-travis >= 0.2 && < 0.3
                ,        template-haskell
