@@ -68,7 +68,7 @@ Test-Suite examples
                         Even
 
   GHC-Options:          -Wall -fno-warn-unused-do-bind
-  Other-Extensions:     DeriveGeneric, DeriveLift, FlexibleInstances,
+  Other-Extensions:     CPP, DeriveGeneric, DeriveLift, FlexibleInstances,
                         MultiParamTypeClasses, TemplateHaskell
   Hs-Source-Dirs:       examples
   Build-Depends:        base
@@ -77,7 +77,7 @@ Test-Suite examples
                ,        tasty >= 0.11 && < 1.4
                ,        tasty-hunit >= 0.9 && < 0.11
                ,        tasty-travis >= 0.2 && < 0.3
-               ,        template-haskell
+               ,        template-haskell >= 2.11 && < 2.17
                ,        validated-literals
 
 Source-Repository head
