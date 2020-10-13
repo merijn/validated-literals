@@ -58,7 +58,7 @@ Library
   Exposed-Modules:      ValidLiterals
 
   Build-Depends:        base >= 4.9 && < 4.15
-               ,        template-haskell
+               ,        template-haskell >= 2.11 && < 2.17
 
 Test-Suite examples
   Default-Language:     Haskell2010
@@ -77,7 +77,7 @@ Test-Suite examples
                ,        tasty >= 0.11 && < 1.4
                ,        tasty-hunit >= 0.9 && < 0.11
                ,        tasty-travis >= 0.2 && < 0.3
-               ,        template-haskell >= 2.11 && < 2.17
+               ,        template-haskell
                ,        validated-literals
 
 Source-Repository head
