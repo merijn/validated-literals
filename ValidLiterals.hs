@@ -1,7 +1,7 @@
 -------------------------------------------------------------------------------
 -- |
 -- Module      :  ValidLiterals
--- Copyright   :  (C) 2015-2019 Merijn Verstraaten
+-- Copyright   :  (C) 2015-2020 Merijn Verstraaten
 -- License     :  BSD-style (see the file LICENSE)
 -- Maintainer  :  Merijn Verstraaten <merijn@inconsistent.nl>
 -- Stability   :  experimental
@@ -50,7 +50,6 @@ module ValidLiterals
     ) where
 
 import Control.Exception (Exception(displayException), throwIO)
-import Data.Maybe (maybe)
 import Data.Proxy (Proxy(Proxy))
 import Data.Typeable (Typeable)
 import Language.Haskell.TH.Syntax
