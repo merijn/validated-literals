@@ -1,0 +1,22 @@
+-- --ghc-options for local packages
+local-ghc-options: -Wcompat -Werror
+
+-- Build steps to fold
+folds:  sdist
+        unpack
+        build
+        build-installed
+        build-everything
+        haddock
+        stackage
+        check
+        doctest
+        hlint
+        constraint-sets
+
+-- Add ghc-head job
+ghc-head: True
+
+-- Jobs to additionally build with OSX
+macos-jobs: True
+
