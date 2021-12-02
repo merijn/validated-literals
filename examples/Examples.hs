@@ -5,7 +5,8 @@ import Control.DeepSeq (NFData, force)
 import Control.Exception
     (Exception(..), SomeException(..), bracket_, evaluate, try)
 import GHC.IO.Handle (hDuplicate, hDuplicateTo)
-import Language.Haskell.TH (Q, TExp, runQ)
+import Language.Haskell.TH (Q, runQ)
+import Language.Haskell.TH.Syntax.Compat (Splice, examineSplice)
 import System.IO (IOMode(WriteMode), stderr, hFlush, withFile)
 import Test.Tasty (TestTree, testGroup)
 import Test.Tasty.HUnit (assertFailure, testCase)
@@ -15,10 +16,10 @@ import ValidLiterals
 import Even
 import ByteString
 
-failingEven :: Q (TExp Even)
+failingEven :: Splice Q Even
 failingEven = validInteger 39
 
-failingByteString :: Q (TExp ByteString)
+failingByteString :: Splice Q ByteString
 failingByteString = valid "λ"
 
 evenVal :: Even
@@ -40,9 +41,9 @@ withRedirectedStderr act = withFile "/dev/null" WriteMode $ \nullHnd -> do
     oldStderr <- hDuplicate stderr
     bracket_ (hDuplicateTo nullHnd stderr) (hDuplicateTo oldStderr stderr) act
 
-checkTHFails :: String -> Q a -> TestTree
+checkTHFails :: String -> Splice Q a -> TestTree
 checkTHFails name thExpr = testCase name $ do
-    result <- try . withRedirectedStderr $ runQ thExpr
+    result <- try . withRedirectedStderr . runQ $ examineSplice thExpr
     case result of
         Right _ -> assertFailure "TH didn't fail!"
         Left e | Just ValidationFailure{} <- fromException e -> return ()
