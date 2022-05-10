@@ -32,11 +32,14 @@
 -- This will check, at compile time, that the provided 'Integer' is, in fact,
 -- even and unwrap it from 'Maybe', avoiding the runtime check.
 -------------------------------------------------------------------------------
+{-# LANGUAGE CPP #-}
+{-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE DefaultSignatures #-}
 {-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE MultiParamTypeClasses #-}
 {-# LANGUAGE ScopedTypeVariables #-}
 {-# LANGUAGE TemplateHaskell #-}
+{-# LANGUAGE TypeFamilies #-}
 module ValidLiterals
     ( Validate(..)
     , ValidationFailure(..)
@@ -54,6 +57,8 @@ import Data.Proxy (Proxy(Proxy))
 import Data.Typeable (Typeable)
 import Language.Haskell.TH.Syntax
 import Language.Haskell.TH.Syntax.Compat (Splice, liftSplice)
+import Language.Haskell.TH.Quote (QuasiQuoter(..))
+import Data.String (IsString, fromString)
 
 -- | 'Exception' type for failed conversions. Useful for testing and more
 -- gracefully handling compile time failures.
@@ -87,6 +92,14 @@ class Validate a b where
     liftResult :: Proxy a -> b -> Splice Q b
     default liftResult :: Lift b => Proxy a -> b -> Splice Q b
     liftResult _ val = [|| val ||]
+
+    quasiQuoter :: IsString a => Proxy a -> Proxy b -> QuasiQuoter
+    quasiQuoter _ _ = QuasiQuoter (\a -> unType <$> valid @a @b (fromString a))
+                 (error "Cannot use q as a pattern")
+#if (__GLASGOW_HASKELL__ >= 700)
+                 (error "Cannot use q as a type")
+                 (error "Cannot use q as a dec")
+#endif
 
 -- | The core function of ValidLiterals, use this together with Typed Template
 -- Haskell splices to insert validated literals into your code. For example, if
